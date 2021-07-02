@@ -7,14 +7,24 @@
 # include <limits.h>
 # include <pthread.h>
 
+typedef struct s_philo
+{
+	pthread_t		thread;
+	pthread_mutex_t	mutex;
+}				t_philo;
+
+
 typedef struct	s_main
 {
-	float		number_of_philosophers;
-	float		time_to_die;
-	float		time_to_eat;
-	float		time_to_sleep;
-	float		number_of_times_each_philosopher_must_eat;
-	int			die_flag;
+	size_t			number_of_philosophers;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			number_of_times_each_philosopher_must_eat;
+	size_t			die_flag;
+	t_philo			philo;
+	// int				fork_nbr;
+	pthread_mutex_t	*mutex;
 	// pthread_t	*thread;
 }				t_main;
 
@@ -25,6 +35,7 @@ typedef struct	s_thread
 }				t_thread;
 
 void	*philo(void *p);
+void	print_philo(char c, int philo);
 
 /*
 **	utils

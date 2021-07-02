@@ -4,6 +4,7 @@ LST_SRCS		= \
 	srcs/main.c \
 	../utils/convertion.c \
 	../utils/memory.c \
+	../utils/print.c \
 	../utils/quit.c
 SRCS_DIR		= .
 OBJS_DIR		= objs
