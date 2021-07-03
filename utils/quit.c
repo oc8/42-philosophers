@@ -1,4 +1,4 @@
-#include "philo_one.h"
+#include "philo.h"
 
 void	quit(char *error, t_main *main)
 {

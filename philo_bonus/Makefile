@@ -1,4 +1,4 @@
-NAME			= philo_one
+NAME			= philo_bonus
 PRINT_NAME		= $(CYAN)$(BOLD)$(NAME)$(END)
 LST_SRCS		= \
 	srcs/main.c \
