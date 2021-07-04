@@ -1,6 +1,6 @@
 #include "philo.h"
 
-struct timeval	ft_time_now(void)
+struct timeval	get_time_now(void)
 {
 	struct timeval	time;
 
@@ -8,8 +8,11 @@ struct timeval	ft_time_now(void)
 	return (time);
 }
 
-float	ft_time_diff_ms(struct timeval t1, struct timeval t0)
+size_t	get_time_diff_ms(struct timeval start)
 {
-	return ((t1.tv_sec - t0.tv_sec) * 1000.0f + (t1.tv_usec - t0.tv_usec) \
-		/ 1000.0f);
+	struct timeval	end;
+
+	end = get_time_now();
+	return ((end.tv_sec - start.tv_sec) * 1000 + (end.tv_usec - start.tv_usec) \
+		/ 1000);
 }

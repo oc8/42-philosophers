@@ -3,6 +3,7 @@ PRINT_NAME		= $(CYAN)$(BOLD)$(NAME)$(END)
 LST_SRCS		= \
 	srcs/main.c \
 	srcs/philo.c \
+	srcs/action.c \
 	srcs/check_die.c \
 	srcs/thread.c \
 	../utils/convertion.c \
@@ -20,7 +21,7 @@ FLAGS			= -Wall -Werror -Wextra
 # FLAGS			= -g
 # FLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
 # FLAGS			= -fsanitize=address -g3
-CFLAGS			= -Iinc
+CFLAGS			= -I../inc
 INCLUDE			= ../inc/philo.h
 RM				= rm -rf
 MKDIR			= mkdir -p

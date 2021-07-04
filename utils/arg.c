@@ -27,6 +27,10 @@ static int	pars(char *str, t_main *main)
 void	set_args(int argc, char *argv[], t_main *main)
 {
 	main->number_of_philosophers = pars(argv[1], main);
+	if (main->number_of_philosophers == 1)
+		main->number_of_fork = 2;
+	else
+		main->number_of_fork = main->number_of_philosophers;
 	main->time_to_die = pars(argv[2], main);
 	main->time_to_eat = pars(argv[3], main);
 	main->time_to_sleep = pars(argv[4], main);

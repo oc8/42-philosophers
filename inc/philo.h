@@ -8,13 +8,16 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define MS 1000//
+
 typedef struct s_philo
 {
-	char		status;
+	pthread_mutex_t	*fork[2];
+	char			status;
+	int				end;
 	struct timeval	time_last_eat;
-	pthread_t	thread;
+	pthread_t		thread;
 }				t_philo;
-
 
 typedef struct	s_main
 {
@@ -23,9 +26,12 @@ typedef struct	s_main
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	size_t			number_of_times_each_philosopher_must_eat;
+	size_t			number_of_fork;
 	t_philo			*philo;
 	// int				fork_nbr;
 	pthread_mutex_t	*mutex;
+	pthread_mutex_t	print_mutex;
+	struct timeval	time_start;
 	// pthread_t	*thread;
 }				t_main;
 
@@ -39,6 +45,11 @@ typedef struct	s_thread
 **	philo
 */
 void	*philo(void *p);
+void	philo_sleep(size_t i, t_main *main);
+void	philo_eat(size_t i, t_main *main);
+void	philo_thinking(size_t i, t_main *main);
+void	philo_take_fork(size_t i, t_main *main);
+
 void	print_philo(char c, size_t philo, t_main *main);
 void	create_philo(t_main *main);
 void	check_philo(t_main *main);
@@ -51,7 +62,7 @@ void	ft_bzero(void *s, size_t n);
 void	set_args(int argc, char *argv[], t_main *main);
 void	*ft_calloc(size_t nbr, size_t size);
 int		ft_atoi(const char *str);
-struct timeval	ft_time_now(void);
-float	ft_time_diff_ms(struct timeval t1, struct timeval t0);
+struct timeval	get_time_now(void);
+size_t	get_time_diff_ms(struct timeval start);
 
 #endif

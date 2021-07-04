@@ -11,7 +11,7 @@ void	*philo(void *p)
 	thread = (t_thread *)p;
 	main = thread->main;
 	philo = &main->philo[thread->id];
-	// philo->time_last_eat = ft_time_now();
+	// philo->time_last_eat = get_time_now();
 	loop_nbr_defined = 0;
 	if (main->number_of_times_each_philosopher_must_eat)
 	{
@@ -20,29 +20,18 @@ void	*philo(void *p)
 	}
 	else
 		loop_nbr = 42;
-	if (thread->id % 2 == 0)
-		usleep(100);
 	while (loop_nbr)
 	{
-		pthread_mutex_lock(&main->mutex[thread->id]);
-		if (thread->id)
-			pthread_mutex_lock(&main->mutex[thread->id + 1]);
-		else
-			pthread_mutex_lock(&main->mutex[main->number_of_philosophers - 1]);
-		print_philo('e', thread->id + 1, main);
-		philo->time_last_eat = ft_time_now();
-		usleep(main->time_to_eat);
-		print_philo('t', thread->id + 1, main);
-		pthread_mutex_unlock(&main->mutex[thread->id]);
-		if (thread->id)
-			pthread_mutex_unlock(&main->mutex[thread->id + 1]);
-		else
-			pthread_mutex_unlock(&main->mutex[main->number_of_philosophers - 1]);
-		print_philo('s', thread->id + 1, main);
-		usleep(main->time_to_sleep);
+		philo_take_fork(thread->id, main);
+		philo_eat(thread->id, main);
+		philo_sleep(thread->id, main);
+		philo_thinking(thread->id, main);
 		if (loop_nbr_defined)
 			loop_nbr--;
+		// if (main->number_of_philosophers % 2)
+		// 	usleep(1000);
 	}
-	printf("end\n");
+	philo->end = 1;
+	// printf("end\n");//
 	return (NULL);
 }

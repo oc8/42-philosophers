@@ -11,6 +11,7 @@ int	main(int argc, char *argv[])
 	} // un seul philo ?
 	ft_bzero(&main, sizeof(main));
 	set_args(argc, argv, &main);
+	main.time_start = get_time_now();
 	create_philo(&main);
 	check_philo(&main);
 	return (0);
