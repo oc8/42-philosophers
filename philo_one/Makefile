@@ -1,18 +1,18 @@
 NAME			= philo_one
 PRINT_NAME		= $(CYAN)$(BOLD)$(NAME)$(END)
 LST_SRCS		= \
-	srcs/main.c \
-	srcs/philo.c \
-	srcs/action.c \
-	srcs/check_die.c \
-	srcs/thread.c \
-	../utils/convertion.c \
-	../utils/memory.c \
-	../utils/time.c \
-	../utils/arg.c \
-	../utils/print.c \
-	../utils/quit.c
-SRCS_DIR		= .
+	main.c \
+	philo.c \
+	action.c \
+	check_die.c \
+	thread.c \
+	utils/convertion.c \
+	utils/memory.c \
+	utils/time.c \
+	utils/arg.c \
+	utils/print.c \
+	utils/quit.c
+SRCS_DIR		= srcs
 OBJS_DIR		= objs
 SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
 OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o)

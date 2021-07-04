@@ -8,11 +8,12 @@ int	main(int argc, char *argv[])
 	{
 		printf("4 or 5 arguments are required\n");
 		return (-1);
-	} // un seul philo ?
+	}
 	ft_bzero(&main, sizeof(main));
 	set_args(argc, argv, &main);
 	main.time_start = get_time_now();
 	create_philo(&main);
 	check_philo(&main);
+	quit(0, &main);
 	return (0);
 }

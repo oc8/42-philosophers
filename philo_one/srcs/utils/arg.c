@@ -18,19 +18,14 @@ static int	pars(char *str, t_main *main)
 			quit("arg is not a number", main);
 		i++;
 	}
-	if (i > 10) // check num
+	if (i > 10)
 		quit("arg is not a integer", main);
 	return (ft_atoi(str));
-
 }
 
 void	set_args(int argc, char *argv[], t_main *main)
 {
-	main->number_of_philosophers = pars(argv[1], main);
-	if (main->number_of_philosophers == 1)
-		main->number_of_fork = 2;
-	else
-		main->number_of_fork = main->number_of_philosophers;
+	main->number_of_philo = pars(argv[1], main);
 	main->time_to_die = pars(argv[2], main);
 	main->time_to_eat = pars(argv[3], main);
 	main->time_to_sleep = pars(argv[4], main);

@@ -1,37 +1,43 @@
 #include "philo.h"
 
+static void	init_philo(t_main *main)
+{
+	size_t		i;
+	t_philo		*philo;
+
+	main->philo = ft_calloc(main->number_of_philo, sizeof(t_philo));
+	i = -1;
+	while (++i < main->number_of_philo)
+	{
+		philo = &main->philo[i];
+		philo->fork[0] = &main->mutex[i];
+		if (i)
+			philo->fork[1] = &main->mutex[i - 1];
+		else
+			philo->fork[1] = &main->mutex[main->number_of_philo - 1];
+	}
+}
+
 void	create_philo(t_main *main)
 {
 	size_t		i;
-	t_thread	*thread;
+	t_thread	*threads;
 
-	main->mutex = ft_calloc(main->number_of_fork, sizeof(pthread_mutex_t));//free
+	main->mutex = ft_calloc(main->number_of_philo, sizeof(pthread_mutex_t));
 	i = -1;
-	while (++i < main->number_of_fork)
-		// main->mutex[i] = ft_calloc(1, sizeof(pthread_mutex_t));
+	while (++i < main->number_of_philo)
 		pthread_mutex_init(&main->mutex[i], NULL);
 	pthread_mutex_init(&main->print_mutex, NULL);
-	thread = ft_calloc(main->number_of_philosophers, sizeof(t_thread));//free
-	main->philo = ft_calloc(main->number_of_philosophers, sizeof(t_philo));//free
+	threads = ft_calloc(main->number_of_philo, sizeof(t_thread));
+	init_philo(main);
 	i = 0;
-	while (i < main->number_of_philosophers)
+	while (i < main->number_of_philo)
 	{
-		thread[i] = (t_thread){main, i};
+		threads[i] = (t_thread){main, i};
 		usleep(100);
-		if (pthread_create(&main->philo[i].thread, NULL, &philo, &thread[i]))
+		if (pthread_create(&main->philo[i].thread, NULL, &philo, &threads[i]))
 			quit("pthread_creat() error", main);
 		i++;
 	}
-	// usleep(500);
-	// i = 1;
-	// while (i < main->number_of_philosophers)
-	// {
-	// 	thread[i] = (t_thread){main, i};
-	// 	if (pthread_create(&main->philo[i].thread, NULL, &philo, &thread[i]))
-	// 		quit("pthread_creat() error", main);
-	// 	i += 2;
-	// }
-	// i = -1;
-	// while (++i < main->number_of_philosophers)
-	// 	pthread_join(threads[i], NULL);
+	main->threads = threads;
 }
